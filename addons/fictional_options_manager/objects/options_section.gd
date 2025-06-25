@@ -31,7 +31,7 @@ func save(config:ConfigFile) -> void:
 	for item in _config_key_map:
 		config.set_value(_section, item, get(_config_key_map[item]))
 	
-func _load(config:ConfigFile) ->void:
+func loadconfig(config:ConfigFile) ->void:
 	suppress_notifications = true
 	for item in _config_key_map:
 		set(_config_key_map.get(item),config.get_value(_section, item, get(_config_key_map[item])))

@@ -8,6 +8,10 @@
 
 config_version=5
 
+[Fictional_Options_Manager]
+
+General/option_sections=["ExampleOptionsSection"]
+
 [application]
 
 config/name="FictionalJamTemplate"
