@@ -8,24 +8,24 @@
 
 config_version=5
 
-[Fictional_Options_Manager]
+[animation]
 
-General/option_sections=["ExampleOptionsSection"]
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 [application]
 
 config/name="FictionalJamTemplate"
 run/main_scene="uid://de1snkcbsk0wh"
-config/features=PackedStringArray("4.4", "GL Compatibility")
+config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
-FictionalOptionsManager="*res://addons/fictional_options_manager/options_manager.gd"
+OptionsManager="*uid://c0o0lowrkci11"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/fictional_options_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/fictional_options_manager/plugin.cfg", "res://addons/trail_2d/plugin.cfg")
 
 [rendering]
 
