@@ -4,11 +4,16 @@ extends RefCounted
 signal _options_changed
 #var _notification: Signal = Signal(self, &"OptionsChanged")
 
-
-var _section: String
-var section_name: String:
+## Key Name for the Section.
+## 
+## The unique name to be used for this configuration section.
+## Will be used to load the values from the [class ConfigFile], being used as the [param section] in the [method ConfigFile.get_value] and [method ConfigFile.set_value] methods
+var _section: StringName
+var section_name: StringName:
 	get: return _section
 
+## Stops the On Change signal being emitted when the [method OptionsSection.notify_change] is called
+## Useful when doing multiple changes you dont want to reflect yet, such as graphical options
 var suppress_notifications: bool = false:
 	get: return suppress_notifications
 	set(value): suppress_notifications = value
@@ -18,8 +23,8 @@ var _config_key_map : Dictionary[String, StringName] = {}
 var _revert_copy: Dictionary
 
 
-func _init(section_name: String):
-	_section = section_name
+func _init(name: StringName):
+	_section = name
 
 
 
@@ -31,7 +36,7 @@ func save(config:ConfigFile) -> void:
 	for item in _config_key_map:
 		config.set_value(_section, item, get(_config_key_map[item]))
 	
-func _load(config:ConfigFile) ->void:
+func loadconfig(config:ConfigFile) ->void:
 	suppress_notifications = true
 	for item in _config_key_map:
 		set(_config_key_map.get(item),config.get_value(_section, item, get(_config_key_map[item])))
