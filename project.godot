@@ -22,6 +22,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 OptionsManager="*uid://c0o0lowrkci11"
+AudioMixer="*uid://c66km0q4gy04u"
 
 [editor_plugins]
 

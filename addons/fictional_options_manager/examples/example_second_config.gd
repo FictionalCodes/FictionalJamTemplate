@@ -1,4 +1,4 @@
-class_name SecondConfigExample extends OptionsManager
+class_name SecondConfigExample extends FictionalOptionsManager
 
 # example showing how to set up a second configuration loader, directly injecting a new type
 func _init() -> void:
