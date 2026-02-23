@@ -1,4 +1,4 @@
-class_name GameResourceLoader 
+class_name ResourceLoaderQueue 
 extends Node
 
 var currently_loading:Array[LoadData]
@@ -26,7 +26,7 @@ func start_load_resource(load: LoadData) -> Error:
 		queue.push_back(load)
 		return OK
 
-	var error := do_actual_load(load)
+	var error := load.start_load()
 	
 	if error != Error.OK:
 		return error 
@@ -41,32 +41,17 @@ func _process(delta: float) -> void:
 	poll_current += delta
 	if poll_current < poll_interval:
 		return
-
+	poll_current = 0.0
 	# check load status of each one
-	for i in range(currently_loading.size()-1,0):
+	for i in range(currently_loading.size() -1, -1,-1):
 		var curr = currently_loading[i]
-		var progress = []
-		var state = ResourceLoader.load_threaded_get_status(curr.load_path, progress)
-
-		match state:
-			ResourceLoader.THREAD_LOAD_LOADED:
-				# as long as we have a callback, do it
-				if !curr.load_finished_callback.is_null():
-					curr.loaded_resource = ResourceLoader.load_threaded_get(curr.load_path)
-					curr.load_finished_callback.call_deferred(curr)
-				curr.completed = true
-			#-----------------------------------
-			[ResourceLoader.THREAD_LOAD_FAILED, ResourceLoader.THREAD_LOAD_INVALID_RESOURCE]:
-				curr.completed = true
-				curr.load_finished_callback.call_deferred(null)
+		curr.poll_load()
 
 		if curr.completed:
 			currently_loading.remove_at(i)	
 	
 	# now stack the currently loading array with the next resource
 	while currently_loading.size() < max_loading and !queue.is_empty():
-		currently_loading.push_back(queue.pop_front())
-
-
-func do_actual_load(load: LoadData) -> Error:
-	return ResourceLoader.load_threaded_request(load.load_path, load.type_hint)
+		var new_load = queue.pop_front()
+		new_load.start_load()
+		currently_loading.push_back(new_load)
