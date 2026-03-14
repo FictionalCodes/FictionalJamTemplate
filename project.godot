@@ -21,13 +21,13 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-OptionsManager="*uid://c0o0lowrkci11"
 AudioMixer="*uid://c66km0q4gy04u"
-ResourceLoading="*uid://ck030kondt37s"
+OptionsManager="*uid://c0o0lowrkci11"
+ResourceLoading="*uid://dfhy0owdg6pu"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/fictional_options_manager/plugin.cfg", "res://addons/trail_2d/plugin.cfg")
+enabled=PackedStringArray("res://addons/fictional_options_manager/plugin.cfg", "res://addons/fictional_resource_loader/plugin.cfg", "res://addons/trail_2d/plugin.cfg")
 
 [rendering]
 
